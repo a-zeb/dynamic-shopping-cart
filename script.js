@@ -4,6 +4,8 @@ const addProductButton = document.getElementById("add-product");
 const cart = document.getElementById("cart");
 const totalPriceSpan = document.getElementById("total-price");
 
+addProductButton.addEventListener("click", addProduct);
+
 let totalPrice = 0;
 
 // Function to update the total price
@@ -18,4 +20,18 @@ function removeItem(event) {
   const price = parseFloat(item.dataset.price);
   updateTotalPrice(-price);
   item.remove();
+}
+
+function addProduct(e) {
+  let newLi = document.createElement("li");
+  newLi.textContent = `${productNameInput.value} ${productPriceInput.value}`;
+  newLi.dataset.price = Number(productPriceInput.value);
+
+  let deleteButton = document.createElement("button");
+  deleteButton.textContent = "Delete";
+  deleteButton.addEventListener("click", removeItem);
+  newLi.appendChild(deleteButton);
+
+  cart.appendChild(newLi);
+  updateTotalPrice(Number(productPriceInput.value));
 }
