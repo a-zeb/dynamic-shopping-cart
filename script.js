@@ -23,15 +23,19 @@ function removeItem(event) {
 }
 
 function addProduct(e) {
-  let newLi = document.createElement("li");
-  newLi.textContent = `${productNameInput.value} ${productPriceInput.value}`;
-  newLi.dataset.price = Number(productPriceInput.value);
+  if (productPriceInput.value && productNameInput.value) {
+    let newLi = document.createElement("li");
+    newLi.textContent = `${productNameInput.value} $${productPriceInput.value} `;
+    newLi.dataset.price = Number(productPriceInput.value);
 
-  let deleteButton = document.createElement("button");
-  deleteButton.textContent = "Delete";
-  deleteButton.addEventListener("click", removeItem);
-  newLi.appendChild(deleteButton);
+    let deleteButton = document.createElement("button");
+    deleteButton.textContent = "Delete";
+    deleteButton.addEventListener("click", removeItem);
+    newLi.appendChild(deleteButton);
 
-  cart.appendChild(newLi);
-  updateTotalPrice(Number(productPriceInput.value));
+    cart.appendChild(newLi);
+    updateTotalPrice(Number(productPriceInput.value));
+  } else {
+    window.alert("Please enter valid values");
+  }
 }
